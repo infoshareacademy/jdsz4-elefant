@@ -1,0 +1,331 @@
+create table c_player as
+select id mid, home_team_api_id tid,season,league_id, case when 1=1 then 'H' end as HA, home_player_1 playerid,home_team_goal GZ, away_team_goal GS, case when away_team_goal<home_team_goal then 3 when away_team_goal=home_team_goal then 1 else 0 end as pkt,CASE
+          when home_player_X1 is null or home_player_Y1 is null  then 'brak'
+           when home_player_X1 = 1 or home_player_Y1 = 1  then 'bramkarz'
+           when home_player_X1 <= 4  and home_player_Y1 <= 5 then 'lewy obronca'
+           when home_player_X1 <= 4  and home_player_Y1 <= 8 and  home_player_Y1 > 6 then 'lewy pomocnik'
+           when home_player_X1 <= 4  and home_player_Y1 <= 11 then 'lewy napastnik'
+            when home_player_X1 <= 6 and home_player_Y1 <= 5 then 'srodkowy obronca'
+            when home_player_X1 = 6 and home_player_Y1 = 6 then 'rozgrywajacy'
+            when home_player_X1 <= 6 and home_player_Y1 <= 8 then 'srodkowy pomocnik'
+           when home_player_X1 <= 6 and home_player_Y1 <= 11 then 'srodkowy napastnik'
+           when home_player_X1 <= 9 and home_player_Y1 <= 5 then 'prawy obronca'
+           when home_player_X1 <= 9 and home_player_Y1 <= 8 and  home_player_Y1 > 6 then 'prawy pomocnik'
+            when home_player_X1 <= 9 and home_player_Y1 <= 11 then 'napastnik'
+           else 'brak' END as pozycja_1 from Match where home_player_1 is not null
+union
+select id mid, home_team_api_id tid,season,league_id, case when 1=1 then 'H' end as HA, home_player_2 playerid,home_team_goal GZ, away_team_goal GS, case when away_team_goal<home_team_goal then 3 when away_team_goal=home_team_goal then 1 else 0 end as pkt,CASE
+            when home_player_X2 is null or home_player_Y2 is null  then 'brak'
+           when home_player_x2 = 1 or home_player_Y2 = 1  then 'bramkarz'
+           when home_player_X2 <= 4  and home_player_Y2 <= 5 then 'lewy obronca'
+           when home_player_X2 <= 4  and home_player_Y2 <= 8 and  home_player_Y1 > 6 then 'lewy pomocnik'
+           when home_player_X2 <= 4  and home_player_Y2 <= 11 then 'lewy napastnik'
+            when home_player_X2 <= 6 and home_player_y2 <= 5 then 'srodkowy obronca'
+            when home_player_x2 = 6 and home_player_y2 = 6 then 'rozgrywajacy'
+            when home_player_x2 <= 6 and home_player_y2 <= 8 then 'srodkowy pomocnik'
+           when home_player_X2 <= 6 and home_player_Y2 <= 11 then 'srodkowy napastnik'
+           when home_player_x2 <= 9 and home_player_Y2 <= 5 then 'prawy obronca'
+           when home_player_x2 <= 9 and home_player_Y2 <= 8 and  home_player_Y1 > 6 then 'prawy pomocnik'
+            when home_player_x2 <= 9 and home_player_Y2 <= 11 then 'napastnik'
+           else 'brak' END as pozycja_1 from match where home_player_2 is not null
+union
+select id mid, home_team_api_id tid,season,league_id, case when 1=1 then 'H' end as HA, home_player_3 playerid,home_team_goal GZ, away_team_goal GS, case when away_team_goal<home_team_goal then 3 when away_team_goal=home_team_goal then 1 else 0 end as pkt,CASE
+           when home_player_X3 is null or home_player_Y3 is null  then 'brak'
+           when home_player_X3 = 1 or home_player_Y3 = 1  then 'bramkarz'
+           when home_player_X3 <= 4  and home_player_Y3 <= 5 then 'lewy obronca'
+           when home_player_X3 <= 4  and home_player_Y3 <= 8 and  home_player_Y3 > 6 then 'lewy pomocnik'
+           when home_player_X3 <= 4  and home_player_Y3 <= 11 then 'lewy napastnik'
+            when home_player_X3 <= 6 and home_player_Y3 <= 5 then 'srodkowy obronca'
+            when home_player_X3 = 6 and home_player_Y3 = 6 then 'rozgrywajacy'
+            when home_player_X3 <= 6 and home_player_Y3 <= 8 then 'srodkowy pomocnik'
+           when home_player_X3 <= 6 and home_player_Y3 <= 11 then 'srodkowy napastnik'
+           when home_player_X3 <= 9 and home_player_Y3 <= 5 then 'prawy obronca'
+           when home_player_X3 <= 9 and home_player_Y3 <= 8 and  home_player_Y3 > 6 then 'prawy pomocnik'
+            when home_player_X3 <= 9 and home_player_Y3 <= 11 then 'napastnik'
+           else 'brak' END as pozycja_1 from Match where home_player_3 is not null
+union
+select id mid, home_team_api_id tid,season,league_id, case when 1=1 then 'H' end as HA, home_player_4 playerid,home_team_goal GZ, away_team_goal GS, case when away_team_goal<home_team_goal then 3 when away_team_goal=home_team_goal then 1 else 0 end as pkt,CASE
+           when home_player_X4 is null or home_player_Y4 is null  then 'brak'
+           when home_player_X4 = 1 or home_player_Y4 = 1  then 'bramkarz'
+           when home_player_X4 <= 4  and home_player_Y4 <= 5 then 'lewy obronca'
+           when home_player_X4 <= 4  and home_player_Y4 <= 8 and  home_player_Y4 > 6 then 'lewy pomocnik'
+           when home_player_X4 <= 4  and home_player_Y4 <= 11 then 'lewy napastnik'
+            when home_player_X4 <= 6 and home_player_Y4 <= 5 then 'srodkowy obronca'
+            when home_player_X4 = 6 and home_player_Y4 = 6 then 'rozgrywajacy'
+            when home_player_X4 <= 6 and home_player_Y4 <= 8 then 'srodkowy pomocnik'
+           when home_player_X4 <= 6 and home_player_Y4 <= 11 then 'srodkowy napastnik'
+           when home_player_X4 <= 9 and home_player_Y4 <= 5 then 'prawy obronca'
+           when home_player_X4 <= 9 and home_player_Y4 <= 8 and  home_player_Y4 > 6 then 'prawy pomocnik'
+            when home_player_X4 <= 9 and home_player_Y4 <= 11 then 'napastnik'
+           else 'brak' END as pozycja_1 from Match where home_player_4 is not null
+union
+select id mid, home_team_api_id tid,season,league_id, case when 1=1 then 'H' end as HA, home_player_5 playerid,home_team_goal GZ, away_team_goal GS, case when away_team_goal<home_team_goal then 3 when away_team_goal=home_team_goal then 1 else 0 end as pkt,CASE
+           when home_player_X5 is null or home_player_Y5 is null  then 'brak'
+           when home_player_X5 = 1 or home_player_Y5 = 1  then 'bramkarz'
+           when home_player_X5 <= 4  and home_player_Y5 <= 5 then 'lewy obronca'
+           when home_player_X5 <= 4  and home_player_Y5 <= 8 and  home_player_Y5 > 6 then 'lewy pomocnik'
+           when home_player_X5 <= 4  and home_player_Y5 <= 11 then 'lewy napastnik'
+            when home_player_X5 <= 6 and home_player_Y5 <= 5 then 'srodkowy obronca'
+            when home_player_X5 = 6 and home_player_Y5 = 6 then 'rozgrywajacy'
+            when home_player_X5 <= 6 and home_player_Y5 <= 8 then 'srodkowy pomocnik'
+           when home_player_X5 <= 6 and home_player_Y5 <= 11 then 'srodkowy napastnik'
+           when home_player_X5 <= 9 and home_player_Y5 <= 5 then 'prawy obronca'
+           when home_player_X5 <= 9 and home_player_Y5 <= 8 and  home_player_Y5 > 6 then 'prawy pomocnik'
+            when home_player_X5 <= 9 and home_player_Y5 <= 11 then 'napastnik'
+           else 'brak' END as pozycja_1 from Match where home_player_5 is not null
+union
+select id mid, home_team_api_id tid,season,league_id, case when 1=1 then 'H' end as HA, home_player_6 playerid,home_team_goal GZ, away_team_goal GS, case when away_team_goal<home_team_goal then 3 when away_team_goal=home_team_goal then 1 else 0 end as pkt,CASE
+           when home_player_X6 is null or home_player_Y6 is null  then 'brak'
+           when home_player_X6 = 1 or home_player_Y6 = 1  then 'bramkarz'
+           when home_player_X6 <= 4  and home_player_Y6 <= 5 then 'lewy obronca'
+           when home_player_X6 <= 4  and home_player_Y6 <= 8 and  home_player_Y6 > 6 then 'lewy pomocnik'
+           when home_player_X6 <= 4  and home_player_Y6 <= 11 then 'lewy napastnik'
+            when home_player_X6 <= 6 and home_player_Y6 <= 5 then 'srodkowy obronca'
+            when home_player_X6 = 6 and home_player_Y6 = 6 then 'rozgrywajacy'
+            when home_player_X6 <= 6 and home_player_Y6 <= 8 then 'srodkowy pomocnik'
+           when home_player_X6 <= 6 and home_player_Y6 <= 11 then 'srodkowy napastnik'
+           when home_player_X6 <= 9 and home_player_Y6 <= 5 then 'prawy obronca'
+           when home_player_X6 <= 9 and home_player_Y6 <= 8 and  home_player_Y6 > 6 then 'prawy pomocnik'
+            when home_player_X6 <= 9 and home_player_Y6 <= 11 then 'napastnik'
+           else 'brak' END as pozycja_1 from Match where home_player_6 is not null
+union
+select id mid, home_team_api_id tid,season,league_id, case when 1=1 then 'H' end as HA, home_player_7 playerid,home_team_goal GZ, away_team_goal GS, case when away_team_goal<home_team_goal then 3 when away_team_goal=home_team_goal then 1 else 0 end as pkt,CASE
+           when home_player_X7 is null or home_player_Y7 is null  then 'brak'
+           when home_player_X7 = 1 or home_player_Y7 = 1  then 'bramkarz'
+           when home_player_X7 <= 4  and home_player_Y7 <= 5 then 'lewy obronca'
+           when home_player_X7 <= 4  and home_player_Y7 <= 8 and  home_player_Y7 > 6 then 'lewy pomocnik'
+           when home_player_X7 <= 4  and home_player_Y7 <= 11 then 'lewy napastnik'
+            when home_player_X7 <= 6 and home_player_Y7 <= 5 then 'srodkowy obronca'
+            when home_player_X7 = 6 and home_player_Y7 = 6 then 'rozgrywajacy'
+            when home_player_X7 <= 6 and home_player_Y7 <= 8 then 'srodkowy pomocnik'
+           when home_player_X7 <= 6 and home_player_Y7 <= 11 then 'srodkowy napastnik'
+           when home_player_X7 <= 9 and home_player_Y7 <= 5 then 'prawy obronca'
+           when home_player_X7 <= 9 and home_player_Y7 <= 8 and  home_player_Y7 > 6 then 'prawy pomocnik'
+            when home_player_X7 <= 9 and home_player_Y7 <= 11 then 'napastnik'
+           else 'brak' END as pozycja_1 from Match where home_player_7 is not null
+union
+select id mid, home_team_api_id tid,season,league_id, case when 1=1 then 'H' end as HA, home_player_8 playerid,home_team_goal GZ, away_team_goal GS, case when away_team_goal<home_team_goal then 3 when away_team_goal=home_team_goal then 1 else 0 end as pkt,CASE
+           when home_player_X8 is null or home_player_Y8 is null  then 'brak'
+           when home_player_X8 = 1 or home_player_Y8 = 1  then 'bramkarz'
+           when home_player_X8 <= 4  and home_player_Y8 <= 5 then 'lewy obronca'
+           when home_player_X8 <= 4  and home_player_Y8 <= 8 and  home_player_Y8 > 6 then 'lewy pomocnik'
+           when home_player_X8 <= 4  and home_player_Y8 <= 11 then 'lewy napastnik'
+            when home_player_X8 <= 6 and home_player_Y8 <= 5 then 'srodkowy obronca'
+            when home_player_X8 = 6 and home_player_Y8 = 6 then 'rozgrywajacy'
+            when home_player_X8 <= 6 and home_player_Y8 <= 8 then 'srodkowy pomocnik'
+           when home_player_X8 <= 6 and home_player_Y8 <= 11 then 'srodkowy napastnik'
+           when home_player_X8 <= 9 and home_player_Y8 <= 5 then 'prawy obronca'
+           when home_player_X8 <= 9 and home_player_Y8 <= 8 and  home_player_Y8 > 6 then 'prawy pomocnik'
+            when home_player_X8 <= 9 and home_player_Y8 <= 11 then 'napastnik'
+           else 'brak' END as pozycja_1 from Match where home_player_8 is not null
+union
+select id mid, home_team_api_id tid,season,league_id, case when 1=1 then 'H' end as HA, home_player_9 playerid,home_team_goal GZ, away_team_goal GS, case when away_team_goal<home_team_goal then 3 when away_team_goal=home_team_goal then 1 else 0 end as pkt,CASE
+           when home_player_X9 is null or home_player_Y9 is null  then 'brak'
+           when home_player_X9 = 1 or home_player_Y9 = 1  then 'bramkarz'
+           when home_player_X9 <= 4  and home_player_Y9 <= 5 then 'lewy obronca'
+           when home_player_X9 <= 4  and home_player_Y9 <= 8 and  home_player_Y9 > 6 then 'lewy pomocnik'
+           when home_player_X9 <= 4  and home_player_Y9 <= 11 then 'lewy napastnik'
+            when home_player_X9 <= 6 and home_player_Y9 <= 5 then 'srodkowy obronca'
+            when home_player_X9 = 6 and home_player_Y9 = 6 then 'rozgrywajacy'
+            when home_player_X9 <= 6 and home_player_Y9 <= 8 then 'srodkowy pomocnik'
+           when home_player_X9 <= 6 and home_player_Y9 <= 11 then 'srodkowy napastnik'
+           when home_player_X9 <= 9 and home_player_Y9 <= 5 then 'prawy obronca'
+           when home_player_X9 <= 9 and home_player_Y9 <= 8 and  home_player_Y9 > 6 then 'prawy pomocnik'
+            when home_player_X9 <= 9 and home_player_Y9 <= 11 then 'napastnik'
+           else 'brak' END as pozycja_1 from Match where home_player_9 is not null
+union
+select id mid, home_team_api_id tid,season,league_id, case when 1=1 then 'H' end as HA, home_player_10 playerid,home_team_goal GZ, away_team_goal GS, case when away_team_goal<home_team_goal then 3 when away_team_goal=home_team_goal then 1 else 0 end as pkt,CASE
+           when home_player_X10 is null or home_player_Y10 is null  then 'brak'
+           when home_player_X10 = 1 or home_player_Y10 = 1  then 'bramkarz'
+           when home_player_X10 <= 4  and home_player_Y10 <= 5 then 'lewy obronca'
+           when home_player_X10 <= 4  and home_player_Y10 <= 8 and  home_player_Y10 > 6 then 'lewy pomocnik'
+           when home_player_X10 <= 4  and home_player_Y10 <= 11 then 'lewy napastnik'
+            when home_player_X10 <= 6 and home_player_Y10 <= 5 then 'srodkowy obronca'
+            when home_player_X10 = 6 and home_player_Y10 = 6 then 'rozgrywajacy'
+            when home_player_X10 <= 6 and home_player_Y10 <= 8 then 'srodkowy pomocnik'
+           when home_player_X10 <= 6 and home_player_Y10 <= 11 then 'srodkowy napastnik'
+           when home_player_X10 <= 9 and home_player_Y10 <= 5 then 'prawy obronca'
+           when home_player_X10 <= 9 and home_player_Y10 <= 8 and  home_player_Y10 > 6 then 'prawy pomocnik'
+            when home_player_X10 <= 9 and home_player_Y10 <= 11 then 'napastnik'
+           else 'brak' END as pozycja_1 from Match where home_player_10 is not null
+union
+select id mid, home_team_api_id tid,season,league_id, case when 1=1 then 'H' end as HA, home_player_11 playerid,home_team_goal GZ, away_team_goal GS, case when away_team_goal<home_team_goal then 3 when away_team_goal=home_team_goal then 1 else 0 end as pkt,CASE
+           when home_player_X11 is null or home_player_Y11 is null  then 'brak'
+           when home_player_X11 = 1 or home_player_Y11 = 1  then 'bramkarz'
+           when home_player_X11 <= 4  and home_player_Y11 <= 5 then 'lewy obronca'
+           when home_player_X11 <= 4  and home_player_Y11 <= 8 and  home_player_Y11 > 6 then 'lewy pomocnik'
+           when home_player_X11 <= 4  and home_player_Y11 <= 11 then 'lewy napastnik'
+            when home_player_X11 <= 6 and home_player_Y11 <= 5 then 'srodkowy obronca'
+            when home_player_X11 = 6 and home_player_Y11 = 6 then 'rozgrywajacy'
+            when home_player_X11 <= 6 and home_player_Y11 <= 8 then 'srodkowy pomocnik'
+           when home_player_X11 <= 6 and home_player_Y11 <= 11 then 'srodkowy napastnik'
+           when home_player_X11 <= 9 and home_player_Y11 <= 5 then 'prawy obronca'
+           when home_player_X11 <= 9 and home_player_Y11 <= 8 and  home_player_Y11 > 6 then 'prawy pomocnik'
+            when home_player_X11 <= 9 and home_player_Y11 <= 11 then 'napastnik'
+           else 'brak' END as pozycja_1 from Match where home_player_11 is not null
+union
+select id mid, away_team_api_id tid,season,league_id, case when 1=1 then 'A' end as HA, away_player_1 playerid, away_team_goal GZ, home_team_goal GS, case when away_team_goal>home_team_goal then 3 when away_team_goal=home_team_goal then 1 else 0 end as pkt,CASE
+           when away_player_X1 is null or away_player_Y1 is null  then 'brak'
+           when away_player_X1 = 1 or away_player_Y1 = 1  then 'bramkarz'
+           when away_player_X1 <= 4  and away_player_Y1 <= 5 then 'lewy obronca'
+           when away_player_X1 <= 4  and away_player_Y1 <= 8 and  away_player_Y1 > 6 then 'lewy pomocnik'
+           when away_player_X1 <= 4  and away_player_Y1 <= 11 then 'lewy napastnik'
+            when away_player_X1 <= 6 and away_player_Y1 <= 5 then 'srodkowy obronca'
+            when away_player_X1 = 6 and away_player_Y1 = 6 then 'rozgrywajacy'
+            when away_player_X1 <= 6 and away_player_Y1 <= 8 then 'srodkowy pomocnik'
+           when away_player_X1 <= 6 and away_player_Y1 <= 11 then 'srodkowy napastnik'
+           when away_player_X1 <= 9 and away_player_Y1 <= 5 then 'prawy obronca'
+           when away_player_X1 <= 9 and away_player_Y1 <= 8 and  away_player_Y1 > 6 then 'prawy pomocnik'
+            when away_player_X1 <= 9 and away_player_Y1 <= 11 then 'napastnik'
+           else 'brak' END as pozycja_1 from Match where away_player_1 is not null
+union
+select id mid, away_team_api_id tid,season,league_id, case when 1=1 then 'A' end as HA, away_player_2 playerid, away_team_goal GZ, home_team_goal GS, case when away_team_goal>home_team_goal then 3 when away_team_goal=home_team_goal then 1 else 0 end as pkt,CASE
+           when away_player_X2 is null or away_player_Y2 is null  then 'brak'
+           when away_player_X2 = 1 or away_player_Y2 = 1  then 'bramkarz'
+           when away_player_X2 <= 4  and away_player_Y2 <= 5 then 'lewy obronca'
+           when away_player_X2 <= 4  and away_player_Y2 <= 8 and  away_player_Y2 > 6 then 'lewy pomocnik'
+           when away_player_X2 <= 4  and away_player_Y2 <= 11 then 'lewy napastnik'
+            when away_player_X2 <= 6 and away_player_Y2 <= 5 then 'srodkowy obronca'
+            when away_player_X2 = 6 and away_player_Y2 = 6 then 'rozgrywajacy'
+            when away_player_X2 <= 6 and away_player_Y2 <= 8 then 'srodkowy pomocnik'
+           when away_player_X2 <= 6 and away_player_Y2 <= 11 then 'srodkowy napastnik'
+           when away_player_X2 <= 9 and away_player_Y2 <= 5 then 'prawy obronca'
+           when away_player_X2 <= 9 and away_player_Y2 <= 8 and  away_player_Y2 > 6 then 'prawy pomocnik'
+            when away_player_X2 <= 9 and away_player_Y2 <= 11 then 'napastnik'
+           else 'brak' END as pozycja_1 from Match where away_player_2 is not null
+union
+select id mid, away_team_api_id tid,season,league_id, case when 1=1 then 'A' end as HA, away_player_3 playerid, away_team_goal GZ, home_team_goal GS, case when away_team_goal>home_team_goal then 3 when away_team_goal=home_team_goal then 1 else 0 end as pkt,CASE
+           when away_player_X3 is null or away_player_Y3 is null  then 'brak'
+           when away_player_X3 = 1 or away_player_Y3 = 1  then 'bramkarz'
+           when away_player_X3 <= 4  and away_player_Y3 <= 5 then 'lewy obronca'
+           when away_player_X3 <= 4  and away_player_Y3 <= 8 and  away_player_Y3 > 6 then 'lewy pomocnik'
+           when away_player_X3 <= 4  and away_player_Y3 <= 11 then 'lewy napastnik'
+            when away_player_X3 <= 6 and away_player_Y3 <= 5 then 'srodkowy obronca'
+            when away_player_X3 = 6 and away_player_Y3 = 6 then 'rozgrywajacy'
+            when away_player_X3 <= 6 and away_player_Y3 <= 8 then 'srodkowy pomocnik'
+           when away_player_X3 <= 6 and away_player_Y3 <= 11 then 'srodkowy napastnik'
+           when away_player_X3 <= 9 and away_player_Y3 <= 5 then 'prawy obronca'
+           when away_player_X3 <= 9 and away_player_Y3 <= 8 and  away_player_Y3 > 6 then 'prawy pomocnik'
+            when away_player_X3 <= 9 and away_player_Y3 <= 11 then 'napastnik'
+           else 'brak' END as pozycja_1 from Match where away_player_3 is not null
+union
+select id mid, away_team_api_id tid,season,league_id, case when 1=1 then 'A' end as HA, away_player_4 playerid, away_team_goal GZ, home_team_goal GS, case when away_team_goal>home_team_goal then 3 when away_team_goal=home_team_goal then 1 else 0 end as pkt,CASE
+           when away_player_X4 is null or away_player_Y4 is null  then 'brak'
+           when away_player_X4 = 1 or away_player_Y4 = 1  then 'bramkarz'
+           when away_player_X4 <= 4  and away_player_Y4 <= 5 then 'lewy obronca'
+           when away_player_X4 <= 4  and away_player_Y4 <= 8 and  away_player_Y4 > 6 then 'lewy pomocnik'
+           when away_player_X4 <= 4  and away_player_Y4 <= 11 then 'lewy napastnik'
+            when away_player_X4 <= 6 and away_player_Y4 <= 5 then 'srodkowy obronca'
+            when away_player_X4 = 6 and away_player_Y4 = 6 then 'rozgrywajacy'
+            when away_player_X4 <= 6 and away_player_Y4 <= 8 then 'srodkowy pomocnik'
+           when away_player_X4 <= 6 and away_player_Y4 <= 11 then 'srodkowy napastnik'
+           when away_player_X4 <= 9 and away_player_Y4 <= 5 then 'prawy obronca'
+           when away_player_X4 <= 9 and away_player_Y4 <= 8 and  away_player_Y4 > 6 then 'prawy pomocnik'
+            when away_player_X4 <= 9 and away_player_Y4 <= 11 then 'napastnik'
+           else 'brak' END as pozycja_1 from Match where away_player_4 is not null
+union
+select id mid, away_team_api_id tid,season,league_id, case when 1=1 then 'A' end as HA, away_player_5 playerid, away_team_goal GZ, home_team_goal GS, case when away_team_goal>home_team_goal then 3 when away_team_goal=home_team_goal then 1 else 0 end as pkt,CASE
+           when away_player_X5 is null or away_player_Y5 is null  then 'brak'
+           when away_player_X5 = 1 or away_player_Y5 = 1  then 'bramkarz'
+           when away_player_X5 <= 4  and away_player_Y5 <= 5 then 'lewy obronca'
+           when away_player_X5 <= 4  and away_player_Y5 <= 8 and  away_player_Y5 > 6 then 'lewy pomocnik'
+           when away_player_X5 <= 4  and away_player_Y5 <= 11 then 'lewy napastnik'
+            when away_player_X5 <= 6 and away_player_Y5 <= 5 then 'srodkowy obronca'
+            when away_player_X5 = 6 and away_player_Y5 = 6 then 'rozgrywajacy'
+            when away_player_X5 <= 6 and away_player_Y5 <= 8 then 'srodkowy pomocnik'
+           when away_player_X5 <= 6 and away_player_Y5 <= 11 then 'srodkowy napastnik'
+           when away_player_X5 <= 9 and away_player_Y5 <= 5 then 'prawy obronca'
+           when away_player_X5 <= 9 and away_player_Y5 <= 8 and  away_player_Y5 > 6 then 'prawy pomocnik'
+            when away_player_X5 <= 9 and away_player_Y5 <= 11 then 'napastnik'
+           else 'brak' END as pozycja_1 from Match where away_player_5 is not null
+union
+select id mid, away_team_api_id tid,season,league_id, case when 1=1 then 'A' end as HA, away_player_6 playerid, away_team_goal GZ, home_team_goal GS, case when away_team_goal>home_team_goal then 3 when away_team_goal=home_team_goal then 1 else 0 end as pkt,CASE
+           when away_player_X6 is null or away_player_Y6 is null  then 'brak'
+           when away_player_X6 = 1 or away_player_Y6 = 1  then 'bramkarz'
+           when away_player_X6 <= 4  and away_player_Y6 <= 5 then 'lewy obronca'
+           when away_player_X6 <= 4  and away_player_Y6 <= 8 and  away_player_Y6 > 6 then 'lewy pomocnik'
+           when away_player_X6 <= 4  and away_player_Y6 <= 11 then 'lewy napastnik'
+            when away_player_X6 <= 6 and away_player_Y6 <= 5 then 'srodkowy obronca'
+            when away_player_X6 = 6 and away_player_Y6 = 6 then 'rozgrywajacy'
+            when away_player_X6 <= 6 and away_player_Y6 <= 8 then 'srodkowy pomocnik'
+           when away_player_X6 <= 6 and away_player_Y6 <= 11 then 'srodkowy napastnik'
+           when away_player_X6 <= 9 and away_player_Y6 <= 5 then 'prawy obronca'
+           when away_player_X6 <= 9 and away_player_Y6 <= 8 and  away_player_Y6 > 6 then 'prawy pomocnik'
+            when away_player_X6 <= 9 and away_player_Y6 <= 11 then 'napastnik'
+           else 'brak' END as pozycja_1 from Match where away_player_6 is not null
+union
+select id mid, away_team_api_id tid,season,league_id, case when 1=1 then 'A' end as HA, away_player_7 playerid, away_team_goal GZ, home_team_goal GS, case when away_team_goal>home_team_goal then 3 when away_team_goal=home_team_goal then 1 else 0 end as pkt,CASE
+           when away_player_X7 is null or away_player_Y7 is null  then 'brak'
+           when away_player_X7 = 1 or away_player_Y7 = 1  then 'bramkarz'
+           when away_player_X7 <= 4  and away_player_Y7 <= 5 then 'lewy obronca'
+           when away_player_X7 <= 4  and away_player_Y7 <= 8 and  away_player_Y7 > 6 then 'lewy pomocnik'
+           when away_player_X7 <= 4  and away_player_Y7 <= 11 then 'lewy napastnik'
+            when away_player_X7 <= 6 and away_player_Y7 <= 5 then 'srodkowy obronca'
+            when away_player_X7 = 6 and away_player_Y7 = 6 then 'rozgrywajacy'
+            when away_player_X7 <= 6 and away_player_Y7 <= 8 then 'srodkowy pomocnik'
+           when away_player_X7 <= 6 and away_player_Y7 <= 11 then 'srodkowy napastnik'
+           when away_player_X7 <= 9 and away_player_Y7 <= 5 then 'prawy obronca'
+           when away_player_X7 <= 9 and away_player_Y7 <= 8 and  away_player_Y7 > 6 then 'prawy pomocnik'
+            when away_player_X7 <= 9 and away_player_Y7 <= 11 then 'napastnik'
+           else 'brak' END as pozycja_1 from Match where away_player_7 is not null
+union
+select id mid, away_team_api_id tid,season,league_id, case when 1=1 then 'A' end as HA, away_player_8 playerid, away_team_goal GZ, home_team_goal GS, case when away_team_goal>home_team_goal then 3 when away_team_goal=home_team_goal then 1 else 0 end as pkt,CASE
+           when away_player_X8 is null or away_player_Y8 is null  then 'brak'
+           when away_player_X8 = 1 or away_player_Y8 = 1  then 'bramkarz'
+           when away_player_X8 <= 4  and away_player_Y8 <= 5 then 'lewy obronca'
+           when away_player_X8 <= 4  and away_player_Y8 <= 8 and  away_player_Y8 > 6 then 'lewy pomocnik'
+           when away_player_X8 <= 4  and away_player_Y8 <= 11 then 'lewy napastnik'
+            when away_player_X8 <= 6 and away_player_Y8 <= 5 then 'srodkowy obronca'
+            when away_player_X8 = 6 and away_player_Y8 = 6 then 'rozgrywajacy'
+            when away_player_X8 <= 6 and away_player_Y8 <= 8 then 'srodkowy pomocnik'
+           when away_player_X8 <= 6 and away_player_Y8 <= 11 then 'srodkowy napastnik'
+           when away_player_X8 <= 9 and away_player_Y8 <= 5 then 'prawy obronca'
+           when away_player_X8 <= 9 and away_player_Y8 <= 8 and  away_player_Y8 > 6 then 'prawy pomocnik'
+            when away_player_X8 <= 9 and away_player_Y8 <= 11 then 'napastnik'
+           else 'brak' END as pozycja_1 from Match where away_player_8 is not null
+union
+select id mid, away_team_api_id tid,season,league_id, case when 1=1 then 'A' end as HA, away_player_9 playerid, away_team_goal GZ, home_team_goal GS, case when away_team_goal>home_team_goal then 3 when away_team_goal=home_team_goal then 1 else 0 end as pkt,CASE
+           when away_player_X9 is null or away_player_Y9 is null  then 'brak'
+           when away_player_X9 = 1 or away_player_Y9 = 1  then 'bramkarz'
+           when away_player_X9 <= 4  and away_player_Y9 <= 5 then 'lewy obronca'
+           when away_player_X9 <= 4  and away_player_Y9 <= 8 and  away_player_Y9 > 6 then 'lewy pomocnik'
+           when away_player_X9 <= 4  and away_player_Y9 <= 11 then 'lewy napastnik'
+            when away_player_X9 <= 6 and away_player_Y9 <= 5 then 'srodkowy obronca'
+            when away_player_X9 = 6 and away_player_Y9 = 6 then 'rozgrywajacy'
+            when away_player_X9 <= 6 and away_player_Y9 <= 8 then 'srodkowy pomocnik'
+           when away_player_X9 <= 6 and away_player_Y9 <= 11 then 'srodkowy napastnik'
+           when away_player_X9 <= 9 and away_player_Y9 <= 5 then 'prawy obronca'
+           when away_player_X9 <= 9 and away_player_Y9 <= 8 and  away_player_Y9 > 6 then 'prawy pomocnik'
+            when away_player_X9 <= 9 and away_player_Y9 <= 11 then 'napastnik'
+           else 'brak' END as pozycja_1 from Match where away_player_9 is not null
+union
+select id mid, away_team_api_id tid,season,league_id, case when 1=1 then 'A' end as HA, away_player_10 playerid, away_team_goal GZ, home_team_goal GS, case when away_team_goal>home_team_goal then 3 when away_team_goal=home_team_goal then 1 else 0 end as pkt,CASE
+           when away_player_X10 is null or away_player_Y10 is null  then 'brak'
+           when away_player_X10 = 1 or away_player_Y10 = 1  then 'bramkarz'
+           when away_player_X10 <= 4  and away_player_Y10 <= 5 then 'lewy obronca'
+           when away_player_X10 <= 4  and away_player_Y10 <= 8 and  away_player_Y10 > 6 then 'lewy pomocnik'
+           when away_player_X10 <= 4  and away_player_Y10 <= 11 then 'lewy napastnik'
+            when away_player_X10 <= 6 and away_player_Y10 <= 5 then 'srodkowy obronca'
+            when away_player_X10 = 6 and away_player_Y10 = 6 then 'rozgrywajacy'
+            when away_player_X10 <= 6 and away_player_Y10 <= 8 then 'srodkowy pomocnik'
+           when away_player_X10 <= 6 and away_player_Y10 <= 11 then 'srodkowy napastnik'
+           when away_player_X10 <= 9 and away_player_Y10 <= 5 then 'prawy obronca'
+           when away_player_X10 <= 9 and away_player_Y10 <= 8 and  away_player_Y10 > 6 then 'prawy pomocnik'
+            when away_player_X10 <= 9 and away_player_Y10 <= 11 then 'napastnik'
+           else 'brak' END as pozycja_1 from Match where away_player_10 is not null
+union
+select id mid, away_team_api_id tid,season,league_id, case when 1=1 then 'A' end as HA, away_player_11 playerid, away_team_goal GZ, home_team_goal GS, case when away_team_goal>home_team_goal then 3 when away_team_goal=home_team_goal then 1 else 0 end as pkt,CASE
+          when away_player_X11 is null or away_player_Y11 is null  then 'brak'
+           when away_player_X11 = 1 or away_player_Y11 = 1  then 'bramkarz'
+           when away_player_X11 <= 4  and away_player_Y11 <= 5 then 'lewy obronca'
+           when away_player_X11 <= 4  and away_player_Y11 <= 8 and  away_player_Y11 > 6 then 'lewy pomocnik'
+           when away_player_X11 <= 4  and away_player_Y11 <= 11 then 'lewy napastnik'
+            when away_player_X11 <= 6 and away_player_Y11 <= 5 then 'srodkowy obronca'
+            when away_player_X11 = 6 and away_player_Y11 = 6 then 'rozgrywajacy'
+            when away_player_X11 <= 6 and away_player_Y11 <= 8 then 'srodkowy pomocnik'
+           when away_player_X11 <= 6 and away_player_Y11 <= 11 then 'srodkowy napastnik'
+           when away_player_X11 <= 9 and away_player_Y11 <= 5 then 'prawy obronca'
+           when away_player_X11 <= 9 and away_player_Y11 <= 8 and  away_player_Y11 > 6 then 'prawy pomocnik'
+            when away_player_X11 <= 9 and away_player_Y11 <= 11 then 'napastnik'
+           else 'brak' END as pozycja_1 from Match where away_player_11 is not null
+order by mid;
