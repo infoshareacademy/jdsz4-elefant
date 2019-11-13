@@ -1,0 +1,32 @@
+create view team_score as
+SELECT tid,
+       sum(pkt)                                    AS sum,
+       count(1)                                        AS count,
+       ((sum(pkt))::numeric / (count(1))::numeric) AS t_sc
+FROM c_player
+GROUP BY tid
+ORDER BY ((sum(pkt))::numeric / (count(1))::numeric) DESC;
+
+
+create view player_score as
+SELECT lo.playerid,
+       lo.tid,
+       lo.c,
+       lo.pl_sc,
+       lo.sum
+FROM (SELECT c_player.playerid,
+             c_player.tid,
+             count(1)                                        AS c,
+             ((sum(c_player.pkt))::numeric / (count(1))::numeric) AS pl_sc,
+             sum(c_player.pkt)                                    AS sum
+      FROM c_player
+      WHERE (c_player.playerid IS NOT NULL)
+      GROUP BY c_player.playerid, c_player.tid
+      ORDER BY ((sum(c_player.pkt))::numeric / (count(1))::numeric) DESC) lo;
+
+select ps.tid,team_long_name,ps.c,ts.count,playerid,player_name,pl_sc,t_sc,pl_sc/t_sc::numeric pl_t from team_score ts
+join player_score ps on ts.tid=ps.tid
+join player on player.player_api_id=ps.playerid
+join Team on team.team_api_id=ps.tid
+and c>100
+order by pl_t desc

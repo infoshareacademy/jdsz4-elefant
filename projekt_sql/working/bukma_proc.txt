@@ -1,0 +1,83 @@
+##Procentowe trafienia bukma
+
+select id,home_team_goal,away_team_goal,b365h,b365d,b365a,tr_wyg_h,sum(tr_wyg_h) over () sh,tr_wyg_a,sum(tr_wyg_a) over () sa,tr_rem,sum(tr_rem) over () sr,count(1) over () wszystkie,(sum(tr_wyg_h) over () +sum(tr_wyg_a) over () +sum(tr_rem) over ()) /count(1) over () proc from
+(select  id,home_team_goal,away_team_goal,b365h,b365d,b365a,count(case when home_team_goal>away_team_goal and b365h<=b365a and b365h<b365d then id end) tr_wyg_h,
+        count(case when home_team_goal<away_team_goal and b365h>=b365a and b365a<b365d then id end) tr_wyg_a,
+        count(case when home_team_goal=away_team_goal and b365h>=b365d and b365a>=b365d then id end) tr_rem
+        from match
+where b365h is not null and b365a is not null and b365d is not null
+    group by id) d
+
+
+select id,home_team_goal,away_team_goal,bwh,bwd,bwa,tr_wyg_h,sum(tr_wyg_h) over () sh,tr_wyg_a,sum(tr_wyg_a) over () sa,tr_rem,sum(tr_rem) over () sr,count(1) over () wszystkie,(sum(tr_wyg_h) over () +sum(tr_wyg_a) over () +sum(tr_rem) over ()) /count(1) over () proc from
+(select  id,home_team_goal,away_team_goal,bwh,bwd,bwa,count(case when home_team_goal>away_team_goal and bwh<=bwa and bwh<bwd then id end) tr_wyg_h,
+        count(case when home_team_goal<away_team_goal and bwh>=bwa and bwa<bwd then id end) tr_wyg_a,
+        count(case when home_team_goal=away_team_goal and bwh>=bwd and bwa>bwd then id end) tr_rem
+        from match
+where bwh is not null and bwa is not null and bwd is not null
+    group by id) d
+
+select id,home_team_goal,away_team_goal,iwh,iwd,iwa,tr_wyg_h,sum(tr_wyg_h) over () sh,tr_wyg_a,sum(tr_wyg_a) over () sa,tr_rem,sum(tr_rem) over () sr,count(1) over () wszystkie,(sum(tr_wyg_h) over () +sum(tr_wyg_a) over () +sum(tr_rem) over ()) /count(1) over () proc from
+(select  id,home_team_goal,away_team_goal,iwh,iwd,iwa,count(case when home_team_goal>away_team_goal and iwh<=iwa and iwh<iwd then id end) tr_wyg_h,
+        count(case when home_team_goal<away_team_goal and iwh>=iwa and iwa<iwd then id end) tr_wyg_a,
+        count(case when home_team_goal=away_team_goal and iwh>=iwd and iwa>iwd then id end) tr_rem
+        from match
+where iwh is not null and iwa is not null and iwd is not null
+    group by id) d
+
+select id,home_team_goal,away_team_goal,lbh,lbd,lba,tr_wyg_h,sum(tr_wyg_h) over () sh,tr_wyg_a,sum(tr_wyg_a) over () sa,tr_rem,sum(tr_rem) over () sr,count(1) over () wszystkie,(sum(tr_wyg_h) over () +sum(tr_wyg_a) over () +sum(tr_rem) over ()) /count(1) over () proc from
+(select  id,home_team_goal,away_team_goal,lbh,lbd,lba,count(case when home_team_goal>away_team_goal and lbh<=lba and lbh<lbd then id end) tr_wyg_h,
+        count(case when home_team_goal<away_team_goal and lbh>=lba and lba<lbd then id end) tr_wyg_a,
+        count(case when home_team_goal=away_team_goal and lbh>=lbd and lba>lbd then id end) tr_rem
+        from match
+where lbh is not null and lba is not null and lbd is not null
+    group by id) d
+
+select id,home_team_goal,away_team_goal,psh,psd,psa,tr_wyg_h,sum(tr_wyg_h) over () sh,tr_wyg_a,sum(tr_wyg_a) over () sa,tr_rem,sum(tr_rem) over () sr,count(1) over () wszystkie,(sum(tr_wyg_h) over () +sum(tr_wyg_a) over () +sum(tr_rem) over ()) /count(1) over () proc from
+(select  id,home_team_goal,away_team_goal,psh,psd,psa,count(case when home_team_goal>away_team_goal and psh<=psa and psh<psd then id end) tr_wyg_h,
+        count(case when home_team_goal<away_team_goal and psh>=psa and psa<psd then id end) tr_wyg_a,
+        count(case when home_team_goal=away_team_goal and psh>=psd and psa>psd then id end) tr_rem
+        from match
+where psh is not null and psa is not null and psd is not null
+    group by id) d
+
+select id,home_team_goal,away_team_goal,whh,whd,wha,tr_wyg_h,sum(tr_wyg_h) over () sh,tr_wyg_a,sum(tr_wyg_a) over () sa,tr_rem,sum(tr_rem) over () sr,count(1) over () wszystkie,(sum(tr_wyg_h) over () +sum(tr_wyg_a) over () +sum(tr_rem) over ()) /count(1) over () proc from
+(select  id,home_team_goal,away_team_goal,whh,whd,wha,count(case when home_team_goal>away_team_goal and whh<=wha and whh<whd then id end) tr_wyg_h,
+        count(case when home_team_goal<away_team_goal and whh>=wha and wha<whd then id end) tr_wyg_a,
+        count(case when home_team_goal=away_team_goal and whh>=whd and wha>whd then id end) tr_rem
+        from match
+where whh is not null and wha is not null and whd is not null
+    group by id) d
+
+select id,home_team_goal,away_team_goal,sjh,sjd,sja,tr_wyg_h,sum(tr_wyg_h) over () sh,tr_wyg_a,sum(tr_wyg_a) over () sa,tr_rem,sum(tr_rem) over () sr,count(1) over () wszystkie,(sum(tr_wyg_h) over () +sum(tr_wyg_a) over () +sum(tr_rem) over ()) /count(1) over () proc from
+(select  id,home_team_goal,away_team_goal,sjh,sjd,sja,count(case when home_team_goal>away_team_goal and sjh<=sja and sjh<sjd then id end) tr_wyg_h,
+        count(case when home_team_goal<away_team_goal and sjh>=sja and sja<sjd then id end) tr_wyg_a,
+        count(case when home_team_goal=away_team_goal and sjh>=sjd and sja>sjd then id end) tr_rem
+        from match
+where sjh is not null and sja is not null and sjd is not null
+    group by id) d
+
+select id,home_team_goal,away_team_goal,vch,vcd,vca,tr_wyg_h,sum(tr_wyg_h) over () sh,tr_wyg_a,sum(tr_wyg_a) over () sa,tr_rem,sum(tr_rem) over () sr,count(1) over () wszystkie,(sum(tr_wyg_h) over () +sum(tr_wyg_a) over () +sum(tr_rem) over ()) /count(1) over () proc from
+(select  id,home_team_goal,away_team_goal,vch,vcd,vca,count(case when home_team_goal>away_team_goal and vch<=vca and vch<vcd then id end) tr_wyg_h,
+        count(case when home_team_goal<away_team_goal and vch>=vca and vca<vcd then id end) tr_wyg_a,
+        count(case when home_team_goal=away_team_goal and vch>=vcd and vca>vcd then id end) tr_rem
+        from match
+where vch is not null and vca is not null and vcd is not null
+    group by id) d
+
+select id,home_team_goal,away_team_goal,gbh,gbd,gba,tr_wyg_h,sum(tr_wyg_h) over () sh,tr_wyg_a,sum(tr_wyg_a) over () sa,tr_rem,sum(tr_rem) over () sr,count(1) over () wszystkie,(sum(tr_wyg_h) over () +sum(tr_wyg_a) over () +sum(tr_rem) over ()) /count(1) over () proc from
+(select  id,home_team_goal,away_team_goal,gbh,gbd,gba,count(case when home_team_goal>away_team_goal and gbh<=gba and gbh<gbd then id end) tr_wyg_h,
+        count(case when home_team_goal<away_team_goal and gbh>=gba and gba<gbd then id end) tr_wyg_a,
+        count(case when home_team_goal=away_team_goal and gbh>=gbd and gba>gbd then id end) tr_rem
+        from match
+where gbh is not null and gba is not null and gbd is not null
+    group by id) d
+
+
+select id,home_team_goal,away_team_goal,bsh,bsd,bsa,tr_wyg_h,sum(tr_wyg_h) over () sh,tr_wyg_a,sum(tr_wyg_a) over () sa,tr_rem,sum(tr_rem) over () sr,count(1) over () wszystkie,(sum(tr_wyg_h) over () +sum(tr_wyg_a) over () +sum(tr_rem) over ()) /count(1) over () proc from
+(select  id,home_team_goal,away_team_goal,bsh,bsd,bsa,count(case when home_team_goal>away_team_goal and bsh<=bsa and bsh<bsd then id end) tr_wyg_h,
+        count(case when home_team_goal<away_team_goal and bsh>=bsa and bsa<bsd then id end) tr_wyg_a,
+        count(case when home_team_goal=away_team_goal and bsh>=bsd and bsa>bsd then id end) tr_rem
+        from match
+where bsh is not null and bsa is not null and bsd is not null
+    group by id) d

@@ -1,0 +1,9 @@
+select distinct pozycja_1,min(height) over (partition by pozycja_1) min_wzrost,
+                avg(height) over (partition by pozycja_1) sr_wzrost,
+                max(height) over (partition by pozycja_1) max_wzrost,
+                min(weight) over (partition by pozycja_1)/2.205 min_waga,
+                avg(weight) over (partition by pozycja_1)/2.205 sr_waga,
+                max(weight) over (partition by pozycja_1)/2.205 max_waga
+from c_player c
+join player p on p.player_api_id=c.playerid
+where pozycja_1!='brak'

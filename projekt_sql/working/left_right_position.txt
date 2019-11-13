@@ -1,0 +1,53 @@
+#preferowana noga a strona boiska
+select pr, proc_prawnog, lw, proc_lewnog, wszys,
+       rr, rl, r, rr/r::numeric proc_prn_prstr,rl/r::numeric proc_lwn_prstr,
+        lr, ll, l,lr/l::numeric proc_prn_lewstr,ll/l::numeric proc_lwn_lewstr,
+       sr, sl, s,sr/s::numeric proc_prn_srod,sl/s::numeric proc_lwn_srod
+from
+(select  pr,pr/wszys::numeric proc_prawnog,
+       lw,lw/wszys::numeric proc_lewnog,
+       wszys,
+       count(case when ust='prawy'and preferred_foot='right'then playerid end)over() rr,
+       count(case when ust='prawy'and preferred_foot='left'then playerid end)over() rl,
+       count(case when ust='prawy'then playerid end)over() r,
+       count(case when ust='lewy'and preferred_foot='right'then playerid end)over() lr,
+       count(case when ust='lewy'and preferred_foot='left'then playerid end)over() ll,
+       count(case when ust='lewy'then playerid end)over() l,
+       count(case when ust='srodek'and preferred_foot='right'then playerid end)over() sr,
+       count(case when ust='srodek'and preferred_foot='left'then playerid end)over() sl,
+       count(case when ust='srodek'then playerid end)over() s
+
+       from
+(select playerid,pozycja_1,case when pozycja_1='lewy obronca'or pozycja_1='lewy pomocnik'or pozycja_1='lewy napastnik'then 'lewy' when pozycja_1='prawy obronca' or pozycja_1='prawy pomocnik' or pozycja_1='napastnik' then 'prawy' else 'srodek'end ust,
+    preferred_foot,count(case when preferred_foot='right' then player_api_id end)over() pr,
+       count(case when preferred_foot='left' then player_api_id end)over() lw,
+       count(case when preferred_foot='right' or preferred_foot='left' then player_api_id end)over() wszys
+from
+(select distinct playerid,pozycja_1 from c_player
+where pozycja_1!='brak') a
+join
+(select distinct player_api_id,preferred_foot,count(case when preferred_foot='right' then player_api_id end)over() prawa,
+       count(case when preferred_foot='left' then player_api_id end)over() lewa,
+       count(case when preferred_foot='right' or preferred_foot='left' then player_api_id end)over() wszystkie from
+(select distinct player_api_id,preferred_foot  from player_attributes
+where preferred_foot is not null) f)g
+on a.playerid=g.player_api_id) j)k
+
+
+#preferowana noga a pozycja
+select distinct pozycja_1,preferred_foot,count(1) over (partition by pozycja_1,preferred_foot)noga_pozycja,count(1) over (partition by pozycja_1)poz,(count(1) over (partition by pozycja_1,preferred_foot))/(count(1) over (partition by pozycja_1))::numeric proc from
+(select playerid,pozycja_1,case when pozycja_1='lewy obronca'or pozycja_1='lewy pomocnik'or pozycja_1='lewy napastnik'then 'lewy' when pozycja_1='prawy obronca' or pozycja_1='prawy pomocnik' or pozycja_1='napastnik' then 'prawy' else 'srodek'end ust,
+    preferred_foot,count(case when preferred_foot='right' then player_api_id end)over() pr,
+       count(case when preferred_foot='left' then player_api_id end)over() lw,
+       count(case when preferred_foot='right' or preferred_foot='left' then player_api_id end)over() wszys
+from
+(select distinct playerid,pozycja_1 from c_player
+where pozycja_1!='brak') a
+join
+(select distinct player_api_id,preferred_foot,count(case when preferred_foot='right' then player_api_id end)over() prawa,
+       count(case when preferred_foot='left' then player_api_id end)over() lewa,
+       count(case when preferred_foot='right' or preferred_foot='left' then player_api_id end)over() wszystkie from
+(select distinct player_api_id,preferred_foot  from player_attributes
+where preferred_foot is not null) f)g
+on a.playerid=g.player_api_id) j
+order by pozycja_1

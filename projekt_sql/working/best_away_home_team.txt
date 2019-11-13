@@ -1,0 +1,55 @@
+#najbardziej odporna drużyna na cudze boisko (najmniej przegranych meczy) ze wszystkich meczy
+select tid,ha,pkt,c,s,ta from
+(select tid,ha,pkt,c,sum(c) over (partition by tid) s, c/sum(c) over (partition by tid) ta from
+(select tid,ha,pkt, count(1) c from c_player
+group by 1,2,3
+order by 1) l) d
+where ha='A' and pkt=0
+order by ta;
+
+#najbardziej odporna drużyna na cudze boisko (najmniej przegranych meczy) z meczy wyjazdowych
+select tid,team_long_name,ha,pkt,c,s,ta from
+(select tid,ha,pkt,c,sum(c) over (partition by tid) s, c/sum(c) over (partition by tid) ta from
+(select tid,ha,pkt, count(1) c from c_player
+where ha='A'
+group by 1,2,3
+order by 1) l) d
+join team on d.tid=team.team_api_id
+where ha='A' and pkt=0
+order by ta
+
+
+#największy procent wygranych meczy na wyjeździe
+select tid,team_long_name,ha,pkt,c,s,ta from
+(select tid,ha,pkt,c,sum(c) over (partition by tid) s, c/sum(c) over (partition by tid) ta from
+(select tid,ha,pkt, count(1) c from c_player
+where ha='A'
+group by 1,2,3
+order by 1) l) d
+join team on d.tid=team.team_api_id
+where ha='A' and pkt=3
+order by ta desc
+
+
+#drużyna nieprzegrywająca na własnym boisku
+select tid,team_long_name,ha,pkt,c,s,ta from
+(select tid,ha,pkt,c,sum(c) over (partition by tid) s, c/sum(c) over (partition by tid) ta from
+(select tid,ha,pkt, count(1) c from c_player
+where ha='H'
+group by 1,2,3
+order by 1) l) d
+join team on d.tid=team.team_api_id
+where ha='H' and pkt=0
+order by ta;
+
+
+#drużyna wygrywająca u siebie
+select tid,team_long_name,ha,pkt,c,s,ta from
+(select tid,ha,pkt,c,sum(c) over (partition by tid) s, c/sum(c) over (partition by tid) ta from
+(select tid,ha,pkt, count(1) c from c_player
+where ha='H'
+group by 1,2,3
+order by 1) l) d
+join team on d.tid=team.team_api_id
+where ha='H' and pkt=3
+order by ta desc
