@@ -1,0 +1,24 @@
+#Bramkarz z największą ilością czystych kont na sezon(+więcej niż 30 meczy)
+select playerid, player_name, tid,team_long_name, season, pozycja_1, mecze, sgs, mecze_czyste_konto,mecze_czyste_konto/mecze::numeric proc_czystych from (
+select distinct playerid, tid,season,pozycja_1,
+                count(1) over(partition by playerid,tid,season) mecze,
+                sum(gs) over(partition by playerid,tid,season) sgs,
+                count(case when gs=0 then playerid end) over(partition by playerid,tid,season) mecze_czyste_konto from c_player
+where pozycja_1='bramkarz') pod
+join player p on pod.playerid=p.player_api_id
+join team t on t.team_api_id=pod.tid
+where mecze>30
+order by proc_czystych desc
+
+
+#Bramkarz z największą ilością czystych kont(+więcej niż 150 meczy)
+select playerid,player_name, tid,team_long_name, pozycja_1, mecze, sgs, mecze_czyste_konto,mecze_czyste_konto/mecze::numeric proc_czystych from (
+select distinct playerid, tid,pozycja_1,
+                count(1) over(partition by playerid,tid) mecze,
+                sum(gs) over(partition by playerid,tid) sgs,
+                count(case when gs=0 then playerid end) over(partition by playerid,tid) mecze_czyste_konto from c_player
+where pozycja_1='bramkarz') pod
+join player p on pod.playerid=p.player_api_id
+join team t on t.team_api_id=pod.tid
+where mecze>150
+order by proc_czystych desc

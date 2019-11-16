@@ -1,0 +1,39 @@
+select name,gole_mecz,avg_lata,sr_wzr,sr_waga,prawa,lewa,
+       corr(gole_mecz, avg_lata)over() kor_gol_lata,
+       corr(gole_mecz,sr_wzr)over() kor_gol_wzr,
+       corr(gole_mecz,sr_waga)over() kor_gol_waga,
+       corr(sr_waga,sr_wzr)over() kor_wag_wzr,
+       corr(gole_mecz,lewa)over () kor_gol_lewa,
+       corr(gole_mecz,prawa)over () kor_gol_prawa
+from
+(select league_id, name, suma_goli, mecze,suma_goli/mecze::numeric gole_mecz from
+(select distinct league_id,name,sum(gz)over(partition by league_id) suma_goli,
+                count(1) over (partition by league_id)/2 mecze
+                from b_team
+join country c on c.id=b_team.league_id)p
+order by gole_mecz) f
+join
+(select distinct c_n,avg(lata)over(),avg(lata)over (partition by c_n) avg_lata from
+(select data_m, uro, (data_m-uro)/365::numeric lata,c_n from
+(select  date data_m,birthday uro,c.league_id cou,country.name c_n from match m
+join c_player c on c.mid=m.id
+join country on c.league_id=country.id
+join player p on p.player_api_id=c.playerid) pod)lod)kod
+on kod.c_n=f.name
+join
+(select distinct c,avg(height)over (partition by c)sr_wzr,avg(weight)over(partition by c)/2.205 sr_waga from
+(select distinct player_name,height,weight,country.name c from player
+join c_player on player.player_api_id=c_player.playerid
+join country on c_player.league_id=country.id) q)w
+on f.name=w.c
+join
+(select distinct pan,prawa,lewa from
+(select player_api_id, preferred_foot, pan,count(1)over(),
+       count(case when preferred_foot='right'then player_api_id end)over(partition by pan)/count(1)over(partition by pan)::numeric prawa,
+       count(case when preferred_foot='left'then player_api_id end)over(partition by pan)/count(1)over(partition by pan)::numeric lewa
+       from
+(select distinct player_api_id,preferred_foot,name pan from player_attributes pa
+join c_player c on c.playerid=pa.player_api_id
+join country on country.id=c.league_id
+where preferred_foot is not null) ff) gg)hh
+on f.name=hh.pan

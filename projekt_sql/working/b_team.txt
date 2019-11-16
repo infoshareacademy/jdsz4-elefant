@@ -1,0 +1,6 @@
+create table b_team as
+select id mid,away_team_api_id tid,season,league_id, case when 1=1 then 'A' end as HA, away_team_goal GZ, home_team_goal GS, case when away_team_goal>home_team_goal then 3 when away_team_goal=home_team_goal then 1 else 0 end as pkt from Match
+union
+select id mid, home_team_api_id tid,season,league_id, case when 1=1 then 'H' end as HA, home_team_goal GZ, away_team_goal GS, case when away_team_goal<home_team_goal then 3 when away_team_goal=home_team_goal then 1 else 0 end as pkt from match
+order by mid
+
