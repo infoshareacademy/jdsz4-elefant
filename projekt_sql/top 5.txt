@@ -1,0 +1,141 @@
+#najbardziej odporna drużyna na cudze boisko (najmniej przegranych meczy) ze wszystkich meczy - limit 5, nazwy drużn
+select team_long_name, tid,ha,pkt,c,s,ta from
+(select tid,ha,pkt,c,sum(c) over (partition by tid) s, c/sum(c) over (partition by tid) ta from
+(select tid,ha,pkt, count(1) c from c_player
+group by 1,2,3
+order by 1) l) d
+join team on team_api_id=tid
+where ha='A' and pkt=0
+order by ta
+limit 5
+
+#najbardziej odporna drużyna na cudze boisko (najmniej przegranych meczy) z meczy wyjazdowych - limit 5, nazwy
+select tid,team_long_name,ha,pkt,c,s,ta from
+(select tid,ha,pkt,c,sum(c) over (partition by tid) s, c/sum(c) over (partition by tid) ta from
+(select tid,ha,pkt, count(1) c from c_player
+where ha='A'
+group by 1,2,3
+order by 1) l) d
+join team on d.tid=team.team_api_id
+where ha='A' and pkt=0
+order by ta
+limit 5
+
+#największy procent wygranych meczy na wyjeździe - limit 5 , nazwy
+select tid,team_long_name,ha,pkt,c,s,ta from
+(select tid,ha,pkt,c,sum(c) over (partition by tid) s, c/sum(c) over (partition by tid) ta from
+(select tid,ha,pkt, count(1) c from c_player
+where ha='A'
+group by 1,2,3
+order by 1) l) d
+join team on d.tid=team.team_api_id
+where ha='A' and pkt=3
+order by ta desc
+limit 5
+
+#drużyna nieprzegrywająca na własnym boisku - limit 5, nazwy
+select tid,team_long_name,ha,pkt,c,s,ta from
+(select tid,ha,pkt,c,sum(c) over (partition by tid) s, c/sum(c) over (partition by tid) ta from
+(select tid,ha,pkt, count(1) c from c_player
+where ha='H'
+group by 1,2,3
+order by 1) l) d
+join team on d.tid=team.team_api_id
+where ha='H' and pkt=0
+order by ta
+limit 5
+
+#drużyna wygrywająca u siebie - limit 5, nazwy
+select tid,team_long_name,ha,pkt,c,s,ta from
+(select tid,ha,pkt,c,sum(c) over (partition by tid) s, c/sum(c) over (partition by tid) ta from
+(select tid,ha,pkt, count(1) c from c_player
+where ha='H'
+group by 1,2,3
+order by 1) l) d
+join team on d.tid=team.team_api_id
+where ha='H' and pkt=3
+order by ta desc
+limit 5
+
+
+# wygrana u siebie i na wyjeździe - 5 druzyn
+
+With wygrana_away as
+(select tid,team_long_name,ha,pkt,c,s,ta from
+(select tid,ha,pkt,c,sum(c) over (partition by tid) s, c/sum(c) over (partition by tid) ta from
+(select tid,ha,pkt, count(1) c from c_player
+where ha='A'
+group by 1,2,3
+order by 1) l) d
+join team on d.tid=team.team_api_id
+where ha='A' and pkt=3
+order by ta desc),
+     wygrana_away_home as
+(select tid,team_long_name,ha,pkt,c,s,ta from
+(select tid,ha,pkt,c,sum(c) over (partition by tid) s, c/sum(c) over (partition by tid) ta from
+(select tid,ha,pkt, count(1) c from c_player
+where ha='H'
+group by 1,2,3
+order by 1) l) d
+join team on d.tid=team.team_api_id
+where ha='H' and pkt=3
+order by ta desc)
+select * from wygrana_away_home
+limit 5
+
+
+#player _score - 5 zawodnikow, nazwy
+SELECT lo.playerid, player_name,
+       lo.tid,
+       lo.c,
+       lo.pl_sc,
+       lo.sum
+FROM (SELECT c_player.playerid,
+             c_player.tid,
+             count(1)                                        AS c,
+             ((sum(c_player.pkt))::numeric / (count(1))::numeric) AS pl_sc,
+             sum(c_player.pkt)                                    AS sum
+      FROM c_player
+      WHERE (c_player.playerid IS NOT NULL)
+      GROUP BY c_player.playerid, c_player.tid
+      ORDER BY ((sum(c_player.pkt))::numeric / (count(1))::numeric) DESC) lo
+join player on player_api_id=playerid
+limit 5
+
+#player _score - 5 zawodnikow, nazwy, waga i wzrost
+
+SELECT lo.playerid, player_name, weight/2.205 waga, height,
+       lo.tid,
+       lo.c,
+       lo.pl_sc,
+       lo.sum
+FROM (SELECT c_player.playerid,
+             c_player.tid,
+             count(1)                                        AS c,
+             ((sum(c_player.pkt))::numeric / (count(1))::numeric) AS pl_sc,
+             sum(c_player.pkt)                                    AS sum
+      FROM c_player
+      WHERE (c_player.playerid IS NOT NULL)
+      GROUP BY c_player.playerid, c_player.tid
+      ORDER BY ((sum(c_player.pkt))::numeric / (count(1))::numeric) DESC) lo
+join player on player_api_id=playerid
+limit 5
+
+
+#player _score - 5 najgorszych zawodnikow, nazwy, waga i wzrost
+SELECT lo.playerid, player_name, weight/2.205 waga, height,
+       lo.tid,
+       lo.c,
+       lo.pl_sc,
+       lo.sum
+FROM (SELECT c_player.playerid,
+             c_player.tid,
+             count(1)                                        AS c,
+             ((sum(c_player.pkt))::numeric / (count(1))::numeric) AS pl_sc,
+             sum(c_player.pkt)                                    AS sum
+      FROM c_player
+      WHERE (c_player.playerid IS NOT NULL)
+      GROUP BY c_player.playerid, c_player.tid
+      ORDER BY ((sum(c_player.pkt))::numeric / (count(1))::numeric)) lo
+join player on player_api_id=playerid
+limit 5
